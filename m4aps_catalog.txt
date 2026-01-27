@@ -1,0 +1,159 @@
+
+General Information
+
+     Instance:  AMRUTCDB                                                                                                          
+   DB Version:  19.0.0.0.0                                                                                                        
+      Release:  12.2.10                                                                                                           
+         Site:  AMRUTDB                                                                                                           
+Servlet Agent:  https://ameronuatr122.arcosa.com:443/OA_HTML                                                                      
+    Web Agent:  https://ameronuatr122.arcosa.com:443/pls/AMRUTDB                                                                  
+     Encoding:  US-ASCII                                                                                                          
+
+Database Characterset and Language
+
+NLS_CHARACTERSET              |US7ASCII                                                                                           
+NLS_TERRITORY                 |AMERICA                                                                                            
+NLS_LANGUAGE                  |AMERICAN                                                                                           
+
+Session Language
+
+NLS_LANGUAGE                  |AMERICAN                                                                                           
+NLS_TERRITORY                 |AMERICA                                                                                            
+
+Initialization Parameters
+
+compatible                    |19.0.0                        |                                                                    
+open_cursors                  |600                           |50                                                                  
+optimizer_adaptive_statistics |FALSE                         |FALSE                                                               
+optimizer_dynamic_sampling    |2                             |2                                                                   
+optimizer_features_enable     |19.1.0                        |19.1.0                                                              
+processes                     |1500                          |0                                                                   
+session_cached_cursors        |500                           |50                                                                  
+
+Installed Languages
+
+Language Code  |NLS Language                  |Installed Flag                                                                     
+---------------|------------------------------|---------------                                                                    
+US             |AMERICAN                      |B                                                                                  
+
+
+Node           |CP |Admin |Forms |Web |DB |HOST                |WEBHOST                            |SERVER_ADDRESS      |Mode     
+---------------|---|------|------|----|---|--------------------|-----------------------------------|--------------------|-----    
+PAMRUATAPP01   |Y  |Y     |Y     |Y   |   |pamruatapp01        |pamruatapp01                       |172.27.134.144      |O        
+PAMRUATAPP02   |Y  |Y     |Y     |Y   |   |pamruatapp02        |pamruatapp02                       |172.27.134.145      |O        
+PAMRUATAPP03   |Y  |Y     |Y     |Y   |   |pamruatapp03        |pamruatapp03                       |172.27.134.146      |O        
+PAMRUATDB01    |   |      |      |    |Y  |pamruatdb01         |                                   |                    |O        
+
+DB Nodes
+
+HOST                     |Active         |DB Status |Instance       |Status    |Version                                           
+-------------------------|---------------|----------|---------------|----------|------------                                      
+pamruatdb01              |NORMAL         |ACTIVE    |AMRUTCDB       |OPEN      |19.0.0.0.0                                        
+
+Trace File Locations
+
+HOST                     |Trace File Location                                                                                     
+-------------------------|------------------------------------------------------------------------------------------              
+pamruatdb01              |/u01/app/oracle/diag/rdbms/amrutcdb_m6h_phx/AMRUTCDB/trace                                              
+
+Family Packs
+
+Abbreviation  |Name                                              |Code Level                                                      
+--------------|--------------------------------------------------|----------                                                      
+ad            |Applications DBA                                  |C.16                                                            
+sem_pf        |Financial Services Applications                   |B.3                                                             
+atg_pf        |Oracle Applications Technology Family             |C.13                                                            
+txk           |Oracle Applications Technology Stack              |C.16                                                            
+ok_pf         |Oracle Contracts Family                           |C.14                                                            
+dmf_pf        |Oracle Discrete Manufacturing Family              |C.14                                                            
+bis_pf        |Oracle E-Business Intelligence Family             |C.7                                                             
+fin_pf        |Oracle Financials Family                          |C.14                                                            
+hr_pf         |Oracle Human Resources Family                     |C.14                                                            
+cc_pf         |Oracle Interaction Center Family                  |C.14                                                            
+mas_pf        |Oracle Marketing and Sales Family                 |C.14                                                            
+om_pf         |Oracle Order Management Family                    |C.14                                                            
+opm_pf        |Oracle Process Manufacturing Family               |C.14                                                            
+prc_pf        |Oracle Procurement Family                         |C.14                                                            
+plm_pf        |Oracle Product Lifecycle Management Family        |C.14                                                            
+pj_pf         |Oracle Projects Family                            |C.14                                                            
+srv_pf        |Oracle Service Family                             |C.14                                                            
+scm_pf        |Oracle Supply Chain Management Family             |C.14                                                            
+scp_pf        |Oracle Value Chain Planning Family                |C.15                                                            
+unv_pf        |University                                        |A                                                               
+
+More4apps Package Versions
+
+Package Name                            |Header              |Body                |H Status|B Status                              
+----------------------------------------|--------------------|--------------------|--------|--------                              
+APPS.M4APS_ARW_EXTENSION                |1.0.1 19-Oct-22     |1.0.1 19-Oct-22     |VALID   |VALID                                 
+APPS.M4APS_CORE                         |1.0.0 05-Mar-24     |1.0.0 05-Mar-24     |VALID   |VALID                                 
+APPS.M4APS_PAYINVWIZARD                 |3.1.0 14-Jan-25     |3.7.0 16-Apr-25     |VALID   |VALID                                 
+APPS.M4APS_PIW_CUSTOM                   |1.0.9 27-Sep-18     |1.1.6 27-Sep-18     |VALID   |VALID                                 
+APPS.M4APS_PIW_EXTENSION                |1.0.2 19-Jan-15     |1.0.2 19-Jan-15     |VALID   |VALID                                 
+APPS.M4APS_RECEIPTWIZARD                |2.1.9 13 Mar 2019   |2.1.9 13 Mar 2019   |VALID   |VALID                                 
+APPS.M4APS_SUPPLIERWIZARD2              |2.1.03 04-Apr-18    |2.1.46 04-Apr-25    |VALID   |VALID                                 
+APPS.M4APS_SUPPLIERWIZARD_EXT           |?                   |?                   |VALID   |VALID                                 
+APPS.M4APS_SW_EXTENSION                 |1.0.0 14-Jan-22     |1.0.0 14-Jan-22     |VALID   |VALID                                 
+APPS.M4APS_XML                          |12.1.7 05-Mar-24    |12.1.15 30 Jun 24   |VALID   |VALID                                 
+
+10 rows selected.
+
+
+Invalid Objects
+
+no rows selected
+
+
+Compilation Errors
+
+no rows selected
+
+
+OOD Synonyms
+
+no rows selected
+
+
+
+Servlet Version                                                                                                                   
+--------------------                                                                                                              
+Unknown                                                                                                                           
+
+
+Wizard Connections
+
+Wizard Version |Servlet Version   |Connection Date|Username            |Responsibility                                            
+---------------|------------------|---------------|--------------------|--------------------------------------------------        
+ARW 3.4.32     |Servlet: 1.4.7    |11-Aug-25 11:03|EBRAHIMKUTTYS       |PPD AR User                                               
+ARW 3.4.32     |Servlet: 1.4.7    |04-Jun-25 13:51|SELVAMJ             |Alert Manager                                             
+CW 3.2.80      |Servlet: 1.4.7    |05-Aug-25 10:06|EBRAHIMKUTTYS       |PPD AR User                                               
+CW 3.2.80      |Servlet: 1.4.7    |31-Jul-25 11:08|JOHNS               |Ameron MAST System User - Administrator                   
+CW 3.2.80      |Servlet: 1.4.7    |30-Jul-25 09:41|EBRAHIMKUTTYS       |PPD AR User                                               
+CW 3.2.80      |Servlet: 1.4.7    |28-Jul-25 14:23|EBRAHIMKUTTYS       |PPD AR User                                               
+CW 3.2.80      |Servlet: 1.4.7    |25-Jul-25 12:30|EBRAHIMKUTTYS       |PPD AR User                                               
+PIW 10.4.39    |Servlet: 1.4.7    |17-Jul-25 09:20|JOSEPHA             |PPD AP Invoice Entry                                      
+PIW 10.4.39    |Servlet: 1.4.7    |04-Jun-25 14:17|GEORGED             |PPD AP Invoice Entry                                      
+PIW 10.4.39    |Servlet: 1.4.7    |04-Jun-25 14:09|JOSEPHA             |PPD AP Invoice Entry                                      
+SW 5.03.30     |Servlet: 1.4.7    |31-Jul-25 11:14|JOHNS               |Ameron MAST System User - Administrator                   
+SW 5.03.30     |Servlet: 1.4.7    |29-Jul-25 13:15|PENAA               |PPD AP Inquiry Plus Vendor                                
+SW 5.03.30     |Servlet: 1.4.7    |29-Jul-25 11:05|PENAA               |PPD AP Inquiry Plus Vendor                                
+SW 5.03.30     |Servlet: 1.4.7    |29-Jul-25 11:03|PENAA               |PPD AP Inquiry Plus Vendor                                
+SW 5.03.30     |Servlet: 1.4.7    |13-Jun-25 08:58|PENAA               |PPD AP Inquiry Plus Vendor                                
+
+15 rows selected.
+
+
+Security Violations
+
+no rows selected
+
+
+License KEYS
+
+License Name            |Key                                                                                                      
+------------------------|-----------------------------------------------------------------------------------------------          
+M4APS_ARW_LICENCE_KEY   |8ABCDDD931658D9F0909E05D47B3258E557851D803975AEC1FEDFF0C629D08C33AD830CEC2766EB6                         
+M4APS_CW_LICENCE_KEY    |FF53AC6F713868EC7470A8409A64A3BFD579C2BFC2CD52824A406863BA5FA2597D4483FBD7AF537F                         
+M4APS_PIW_LICENCE_KEY   |953341FB67D7F0B102653AAA8BD94C50742EEC2B335A3666AD07E2BE930862382F1AFFCC668E0D41                         
+M4APS_SW_LICENCE_KEY    |6CAB4D0BFAD8BD25522563976BC1AFBE900923C0B4E84AC38A635D8D7836D49E034976D99BB26005                         
+
