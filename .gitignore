@@ -1,20 +1,5 @@
-# dependencies
-node_modules/
-
-# build output
-build/
-dist/
-
-# env files
-.env
-.env.*
-
-# logs
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-pnpm-debug.log*
-
-# OS
-.DS_Store
-Thumbs.db
+# Only track the m4aps-analyzer folder
+/*
+!/m4aps-analyzer/
+!/m4aps-analyzer/**
+!/.gitignore
