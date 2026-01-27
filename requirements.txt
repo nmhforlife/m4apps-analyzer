@@ -1,0 +1,2 @@
+# This project does not use Python dependencies.
+# Add Python packages here if you introduce Python scripts.

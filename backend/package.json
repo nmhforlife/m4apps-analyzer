@@ -19,7 +19,8 @@
     "compression": "^1.7.4",
     "express-rate-limit": "^7.1.5",
     "moment": "^2.29.4",
-    "lodash": "^4.17.21"
+    "lodash": "^4.17.21",
+    "puppeteer": "^22.10.0"
   },
   "devDependencies": {
     "nodemon": "^3.0.2",
