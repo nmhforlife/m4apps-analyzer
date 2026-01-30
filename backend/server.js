@@ -12,6 +12,9 @@ const catalogParser = require('./utils/catalogParser');
 const AnalysisEngine = require('./utils/analysisEngine');
 const versionUpdater = require('./utils/versionUpdater');
 const webScraper = require('./utils/webScraper');
+const { updateProductHistory } = require('./utils/updateProductHistory');
+
+let productHistoryUpdateInProgress = false;
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -141,15 +144,37 @@ app.get('/api/health', (req, res) => {
   res.json({ status: 'OK', timestamp: new Date().toISOString() });
 });
 
-// Upload and parse catalog file
-app.post('/api/catalog/upload', upload.single('catalogFile'), async (req, res) => {
+const handleCatalogUpload = async (req, res) => {
   try {
     if (!req.file) {
       return res.status(400).json({ error: 'No file uploaded' });
     }
 
+    console.log('[upload] Catalog upload received.');
+
     const fileContent = req.file.buffer.toString('utf-8');
     const filename = req.file.originalname;
+
+    setImmediate(() => {
+      console.log('[history] Queueing product history update...');
+      if (productHistoryUpdateInProgress) {
+        console.warn('Product history update already in progress. Skipping new request.');
+        return;
+      }
+
+      productHistoryUpdateInProgress = true;
+      console.log('Starting product history update...');
+      updateProductHistory()
+        .then(() => {
+          console.log('Product history update completed successfully.');
+        })
+        .catch(historyError => {
+          console.error('Product history update failed:', historyError);
+        })
+        .finally(() => {
+          productHistoryUpdateInProgress = false;
+        });
+    });
 
     // Parse the catalog file
     const parsedData = catalogParser.parse(fileContent, filename);
@@ -212,7 +237,11 @@ app.post('/api/catalog/upload', upload.single('catalogFile'), async (req, res) =
       details: error.message 
     });
   }
-});
+};
+
+// Upload and parse catalog file
+app.post('/api/catalog/upload', upload.single('catalogFile'), handleCatalogUpload);
+app.post('/catalog/upload', upload.single('catalogFile'), handleCatalogUpload);
 
 // Get recommendations for a specific catalog
 app.post('/api/catalog/recommendations', async (req, res) => {

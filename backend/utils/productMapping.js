@@ -74,7 +74,7 @@ const productMapping = {
   "RTW": "Routing Wizard",
   
   // Shared/Information packages
-  "XML": "Shared Package",
+  "XML": "Shared Packages",
   "XML_ENCODING": "Shared Package (Encoding)",
   
   // Legacy codes for backward compatibility
@@ -303,7 +303,7 @@ function isInformationalPackage(packageName) {
   if (!packageName) return false;
   
   const wizardCode = extractWizardCode(packageName);
-  const informationalCodes = ['XML', 'XML_ENCODING'];
+  const informationalCodes = ['XML_ENCODING'];
   
   return informationalCodes.includes(wizardCode);
 }

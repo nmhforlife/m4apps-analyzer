@@ -1,0 +1,198 @@
+{
+  "20893": {
+    "name": "Project Wizard",
+    "code": "PW"
+  },
+  "20897": {
+    "name": "Project Transaction Wizard",
+    "code": "TW"
+  },
+  "20890": {
+    "name": "Event Wizard",
+    "code": "EW"
+  },
+  "1818": {
+    "name": "Budget Wizard",
+    "code": "BW"
+  },
+  "20896": {
+    "name": "Requisition Wizard",
+    "code": "RW"
+  },
+  "3913": {
+    "name": "PO Wizard",
+    "code": "POW"
+  },
+  "5253": {
+    "name": "PO Receiving Wizard",
+    "code": "PRW"
+  },
+  "20892": {
+    "name": "Asset Wizard",
+    "code": "AW"
+  },
+  "20888": {
+    "name": "AP Invoice Wizard",
+    "code": "PIW"
+  },
+  "4753": {
+    "name": "Supplier Wizard",
+    "code": "SW"
+  },
+  "4673": {
+    "name": "AR Receipt Wizard",
+    "code": "ARW"
+  },
+  "20891": {
+    "name": "Customer Wizard",
+    "code": "CW"
+  },
+  "5034": {
+    "name": "Item Wizard",
+    "code": "IW"
+  },
+  "4773": {
+    "name": "Sales Order Wizard",
+    "code": "SOW"
+  },
+  "20889": {
+    "name": "Element Entry Wizard",
+    "code": "EEW"
+  },
+  "20895": {
+    "name": "Routing Wizard",
+    "code": "RTW"
+  },
+  "5036": {
+    "name": "Material Transaction Wizard",
+    "code": "MTW"
+  },
+  "5274": {
+    "name": "Employee Wizard",
+    "code": "EMW"
+  },
+  "4833": {
+    "name": "Bill of Materials Wizard",
+    "code": "BMW"
+  },
+  "5033": {
+    "name": "Item Cost Wizard",
+    "code": "ICW"
+  },
+  "5296": {
+    "name": "Special Information Wizard",
+    "code": "SIW"
+  },
+  "5294": {
+    "name": "Agreement & Funding Wizard",
+    "code": "AFW"
+  },
+  "5299": {
+    "name": "Price List Wizard",
+    "code": "PLW"
+  },
+  "5404": {
+    "name": "Procurement Module",
+    "code": "OC-PROC"
+  },
+  "5407": {
+    "name": "Finance Module",
+    "code": "OC-FIN"
+  },
+  "5408": {
+    "name": "Projects Module",
+    "code": "OC-PROJ"
+  },
+  "5410": {
+    "name": "Product Definition Module",
+    "code": "OC-PRODUCTDEF"
+  },
+  "5411": {
+    "name": "Trading Community Module",
+    "code": "OC-TRADECOM"
+  },
+  "5412": {
+    "name": "Sales Module",
+    "code": "OC-SALES"
+  },
+  "5398": {
+    "name": "GL Daily Rates Loader",
+    "code": "AIW_GLDRL"
+  },
+  "5402": {
+    "name": "Job and Position Loader",
+    "code": "AIW_JBPS"
+  },
+  "5403": {
+    "name": "EAM Work Management Loader",
+    "code": "AIW_EAMWKMGMT"
+  },
+  "5376": {
+    "name": "Physical Stocktake Loader",
+    "code": "AIW_INVPSTL"
+  },
+  "5390": {
+    "name": "WIP Loader",
+    "code": "AIW_WIP"
+  },
+  "5395": {
+    "name": "AR Notes Loader",
+    "code": "AIW_ARNL"
+  },
+  "5382": {
+    "name": "Bank Statement Loader",
+    "code": "AIW_BSL"
+  },
+  "5381": {
+    "name": "Banks and Branches Loader",
+    "code": "AIW_BBL"
+  },
+  "5396": {
+    "name": "iSupplier User Loader",
+    "code": "AIW_iSUL"
+  },
+  "5400": {
+    "name": "OPM Master Data Loader",
+    "code": "AIW_OPMRFL"
+  },
+  "5389": {
+    "name": "Labor Cost Rate Loader",
+    "code": "AIW_PALCR"
+  },
+  "5386": {
+    "name": "Resource List Members Loader",
+    "code": "AIW_RLML"
+  },
+  "5388": {
+    "name": "Unassigned Asset Lines Loader",
+    "code": "AIW_PAUAL"
+  },
+  "5401": {
+    "name": "System Administration Loader",
+    "code": "AIW_SYSAD"
+  },
+  "5306": {
+    "name": "Pricing Modifiers Wizard",
+    "code": "PMW"
+  },
+  "5356": {
+    "name": "GL Wizard",
+    "code": "GLW"
+  },
+  "5355": {
+    "name": "AR Invoice Wizard",
+    "code": "RIW"
+  },
+  "5369": {
+    "name": "Sourcing Wizard",
+    "code": "SCW"
+  },
+  "5370": {
+    "name": "Application Interface Wizard",
+    "code": "AIW"
+  },
+  "5358": {
+    "name": "More4apps Servlet",
+    "code": "SERVLET"
+  }
+}

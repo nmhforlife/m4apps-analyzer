@@ -465,7 +465,8 @@ class CatalogParser {
 
     for (let i = headerIndex + 2; i < lines.length; i++) { // Skip header and separator line
       const line = lines[i];
-      if (line.includes('rows selected') || line.includes('Security Violations') || line === '' || line.includes('-----')) break;
+      if (line.includes('rows selected') || line.includes('Security Violations') || line.includes('License KEYS')) break;
+      if (line === '' || line.includes('-----')) continue;
       
       const parts = line.split('|');
       if (parts.length >= 4) {
@@ -483,6 +484,16 @@ class CatalogParser {
             username,
             responsibility
           });
+        } else if (connections.length > 0 && (username || responsibility)) {
+          const last = connections[connections.length - 1];
+          if (username) {
+            last.username = `${last.username}${username}`;
+          }
+          if (responsibility) {
+            last.responsibility = last.responsibility
+              ? `${last.responsibility} ${responsibility}`
+              : responsibility;
+          }
         }
       }
     }

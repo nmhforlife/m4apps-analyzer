@@ -6,6 +6,28 @@ const path = require('path');
 const VERSION_CHECKER_PATH = path.join(__dirname, 'versionChecker.js');
 const ENDPOINT = 'https://horizon.more4apps.com/ords/horizon/product/release';
 
+function readExistingLatestVersions() {
+  const file = fs.readFileSync(VERSION_CHECKER_PATH, 'utf-8');
+  const start = file.indexOf('const latestVersions = ');
+  if (start === -1) {
+    return {};
+  }
+
+  const objectStart = start + 'const latestVersions = '.length;
+  const objectEnd = file.indexOf('};', objectStart);
+  if (objectEnd === -1) {
+    return {};
+  }
+
+  const objectText = file.substring(objectStart, objectEnd + 1);
+  try {
+    return JSON.parse(objectText);
+  } catch (error) {
+    console.warn('Could not parse existing latestVersions. Falling back to empty overrides.');
+    return {};
+  }
+}
+
 async function fetchLatestVersions() {
   console.log('Fetching latest versions from:', ENDPOINT);
   const controller = new AbortController();
@@ -54,6 +76,25 @@ function buildLatestVersionsObject(items) {
   return obj;
 }
 
+function applyOverrides(latestVersionsObj, existingVersions) {
+  const merged = { ...latestVersionsObj };
+
+  if (merged['Wizard Infrastructure for R12 (XML package and servlet)'] && !merged['Wizard Infrastructure for R12 (XML package)']) {
+    merged['Wizard Infrastructure for R12 (XML package)'] = merged['Wizard Infrastructure for R12 (XML package and servlet)'];
+  }
+  delete merged['Wizard Infrastructure for R12 (XML package and servlet)'];
+
+  if (existingVersions['Wizard Infrastructure for R12 (XML package)']) {
+    merged['Wizard Infrastructure for R12 (XML package)'] = existingVersions['Wizard Infrastructure for R12 (XML package)'];
+  }
+
+  if (existingVersions['More4apps Servlet']) {
+    merged['More4apps Servlet'] = existingVersions['More4apps Servlet'];
+  }
+
+  return merged;
+}
+
 function updateVersionCheckerFile(latestVersionsObj) {
   const file = fs.readFileSync(VERSION_CHECKER_PATH, 'utf-8');
   const start = file.indexOf('const latestVersions = {');
@@ -69,7 +110,9 @@ function updateVersionCheckerFile(latestVersionsObj) {
   try {
     const items = await fetchLatestVersions();
     const latestVersionsObj = buildLatestVersionsObject(items);
-    updateVersionCheckerFile(latestVersionsObj);
+    const existingVersions = readExistingLatestVersions();
+    const mergedVersions = applyOverrides(latestVersionsObj, existingVersions);
+    updateVersionCheckerFile(mergedVersions);
     console.log('versionChecker.js updated successfully!');
   } catch (err) {
     console.error('Error updating versionChecker.js:', err);

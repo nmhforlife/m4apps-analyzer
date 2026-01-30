@@ -1,0 +1,79 @@
+Product Name,Product Code,Product ID
+Project Wizard,PW,20893
+Project Transaction Wizard,TW,20897
+Event Wizard,EW,20890
+Budget Wizard,BW,1818
+Labor Cost Rate Wizard,LCW,
+Requisition Wizard,RW,20896
+PO Wizard,POW,3913
+PO Receiving Wizard,PRW,5253
+Asset Wizard,AW,20892
+AP Invoice Wizard,PIW,20888
+Supplier Wizard,SW,4753
+AR Invoice Wizard Interface,RIW-INT,
+AR Receipt Wizard,ARW,4673
+Custom Query / Downloader,DW,
+Customer Wizard,CW,20891
+Item Wizard,IW,5034
+Sales Order Wizard,SOW,4773
+Element Entry Wizard,EEW,20889
+Routing Wizard,RTW,20895
+Material Transaction Wizard,MTW,5036
+Custom Development,CD,
+Employee Wizard,EMW,5274
+Bill of Materials Wizard,BMW,4833
+Excel-Out,EO,
+Upload Wizard,UW,
+Sales Quote Wizard,SQW,
+Project Asset Loader,PAL,
+Item Cost Wizard,ICW,5033
+Special Information Wizard,SIW,5296
+Agreement & Funding Wizard,AFW,5294
+Price List Wizard,PLW,5299
+Procurement Module,OC-PROC,5404
+Finance Module,OC-FIN,5407
+Supply Chain Execution Module,OC-SCE,
+Projects Module,OC-PROJ,5408
+Product Definition Module,OC-PRODUCTDEF,5410
+Trading Community Module,OC-TRADECOM,5411
+Sales Module,OC-SALES,5412
+EBS Tool Box - Base,EBS-SUB-BASE,
+Subscription Unspecified,SUB-UNSPEC,5404
+GL Daily Rates Loader,AIW_GLDRL,5398
+Job and Position Loader,AIW_JBPS,5402
+EAM Work Management Loader,AIW_EAMWKMGMT,5403
+Physical Stocktake Loader,AIW_INVPSTL,5376
+WIP Loader,AIW_WIP,5390
+AR Notes Loader,AIW_ARNL,5395
+Bank Statement Loader,AIW_BSL,5382
+Banks and Branches Loader,AIW_BBL,5381
+iSupplier User Loader,AIW_iSUL,5396
+OPM Master Data Loader,AIW_OPMRFL,5400
+Labor Cost Rate Loader,AIW_PALCR,5389
+Resource List Members Loader,AIW_RLML,5386
+Unassigned Asset Lines Loader,AIW_PAUAL,5388
+System Administration Loader,AIW_SYSAD,5401
+EBS Tool Box - Gold Base,EBS-SUB-GOLD,
+EBS Tool Box - Platinum Base,EBS-SUB-PLAT,
+Support Conversion,EBS-SUPP-CONV,
+Training and Onboarding,TRON,
+Pricing Modifiers Wizard,PMW,5306
+Mobile Inventory,WWIS,
+Item Extension Wizard,IEW,
+Mobile PO Receipting,WWRC,
+Mobile Work in Process,WWWP,
+Mobile Stock Take,MSTK,
+GL Wizard,GLW,5356
+AR Invoice Wizard,RIW,5355
+Formula Wizard,FMW,
+Sourcing Wizard,SCW,5369
+Application Interface Wizard,AIW,5370
+Item Catalog UDA Wizard,IUW,
+All,,
+Common Code,,
+Core Code,,
+Other,,
+M4A Cloud Framework,,
+M4A Cloud Services,,
+ERP Cloud Toolbox Add-In,CLTBA,
+Starter Pack,STARTER,

@@ -11,10 +11,12 @@ class AnalysisEngine {
   // Filter out packages containing "Core", "Extension", "Custom" (but not "Customer")
   // Also filter out informational packages like XML shared packages
   // Also filter out _MISCDIST and _EXT entries
-  filterRelevantPackages(packages) {
+  filterRelevantPackages(packages, options = {}) {
     if (!packages || packages.length === 0) {
       return [];
     }
+
+    const includeInformational = options.includeInformational === true;
 
     return packages.filter(pkg => {
       const packageName = pkg.packageName || '';
@@ -34,24 +36,202 @@ class AnalysisEngine {
       
       // Check if it's an informational package (XML shared packages)
       const isInformational = isInformationalPackage(packageName);
+      const isXmlEncoding = /^(?:APPS|BOLINF)\.M4APS_XML_ENCODING$/i.test(packageName);
       
-      return !(containsCore || containsExtension || containsCustom || containsMiscDist || containsExt || isInformational);
+      return !(containsCore || containsExtension || containsCustom || containsMiscDist || containsExt || isXmlEncoding || (!includeInformational && isInformational));
     });
   }
 
   analyze(catalogData) {
     const filteredPackages = this.filterRelevantPackages(catalogData.m4apsPackages || []);
+    const servletVersion = this.getServletVersionFromConnections(catalogData.wizardConnections || []);
+    const mostCommonVersions = this.getMostCommonWizardVersions(catalogData.wizardConnections || []);
     
     return {
       healthScore: this.calculateHealthScore(catalogData),
       packageAnalysis: this.analyzePackages(catalogData.m4apsPackages),
       systemHealth: this.analyzeSystemHealth(catalogData),
       versionAnalysis: this.analyzeVersions(catalogData),
-      versionComparison: this.analyzeVersionComparison(catalogData.m4apsPackages),
+      versionComparison: this.analyzeVersionComparison(catalogData.m4apsPackages, servletVersion, mostCommonVersions),
       usageAnalysis: this.analyzeUsage(catalogData.wizardConnections),
       securityAnalysis: this.analyzeSecurityIssues(catalogData),
       summary: this.generateSummary(catalogData)
     };
+  }
+
+  getServletVersionFromConnections(wizardConnections) {
+    if (!wizardConnections || wizardConnections.length === 0) {
+      return null;
+    }
+
+    for (const connection of wizardConnections) {
+      const servletVersion = connection.servletVersion || '';
+      const match = servletVersion.match(/(\d+\.\d+\.\d+)/);
+      if (match) {
+        return match[1];
+      }
+    }
+
+    return null;
+  }
+
+  parseWizardConnectionDate(connectionDate) {
+    if (!connectionDate) {
+      return null;
+    }
+
+    let parsedDate = moment(connectionDate, 'DD-MMM-YY HH:mm', true);
+    if (!parsedDate.isValid()) {
+      parsedDate = moment(connectionDate, 'DD-MMM-YY', true);
+    }
+    if (!parsedDate.isValid()) {
+      parsedDate = moment(connectionDate, [
+        'DD-MON-YY',
+        'DD-MON-YYYY',
+        'YYYY-MM-DD',
+        'DD-MMM-YYYY HH:mm',
+        'DD-MMM-YYYY'
+      ]);
+    }
+
+    return parsedDate.isValid() ? parsedDate : null;
+  }
+
+  getMostCommonWizardVersions(wizardConnections) {
+    if (!wizardConnections || wizardConnections.length === 0) {
+      return [];
+    }
+
+    const normalizeVersion = (value) => {
+      if (!value) {
+        return null;
+      }
+
+      const match = String(value).match(/\d+(?:\.\d+)+/);
+      return match ? match[0] : String(value).trim();
+    };
+
+    const loadProductHistory = () => {
+      try {
+        const fs = require('fs');
+        const path = require('path');
+        const historyPath = path.join(__dirname, '..', 'data', 'productHistory.json');
+        const raw = fs.readFileSync(historyPath, 'utf8');
+        return JSON.parse(raw);
+      } catch (error) {
+        console.warn('Failed to load product history:', error);
+        return null;
+      }
+    };
+
+    const resolveReleaseDate = (wizardName, version) => {
+      if (!version || version === 'Unknown') {
+        return null;
+      }
+
+      const normalizedVersion = normalizeVersion(version);
+
+      try {
+        const productHistory = loadProductHistory();
+        const products = productHistory?.products || {};
+        const match = Object.values(products).find(product => product?.name === wizardName);
+        const historyMatch = match?.versions?.find(entry => normalizeVersion(entry?.version) === normalizedVersion);
+        if (historyMatch?.releaseDate) {
+          return historyMatch.releaseDate;
+        }
+      } catch (error) {
+        console.warn('Failed to read product history for wizard release dates:', error);
+      }
+
+      try {
+        const { latestVersions } = require('./versionChecker');
+        const latestInfo = latestVersions?.[wizardName];
+        if (latestInfo?.releaseDate) {
+          return latestInfo.releaseDate;
+        }
+      } catch (error) {
+        console.warn('Failed to read latest versions for wizard release dates:', error);
+      }
+
+      return null;
+    };
+
+    const sixMonthsAgo = moment().subtract(6, 'months');
+    const usage = {};
+
+    wizardConnections.forEach(connection => {
+      const date = this.parseWizardConnectionDate(connection.connectionDate);
+      if (!date || !date.isAfter(sixMonthsAgo)) {
+        return;
+      }
+
+      const wizardVersion = (connection.wizardVersion || '').trim();
+      if (!wizardVersion) {
+        return;
+      }
+
+      const [wizardCode, version = 'Unknown'] = wizardVersion.split(/\s+/);
+      if (!wizardCode) {
+        return;
+      }
+
+      if (!usage[wizardCode]) {
+        usage[wizardCode] = {
+          wizardCode,
+          wizardName: getWizardName(wizardCode),
+          versions: {}
+        };
+      }
+
+      if (!usage[wizardCode].versions[version]) {
+        usage[wizardCode].versions[version] = {
+          version,
+          count: 0,
+          lastUsed: null
+        };
+      }
+
+      usage[wizardCode].versions[version].count += 1;
+      if (!usage[wizardCode].versions[version].lastUsed || date.isAfter(usage[wizardCode].versions[version].lastUsed)) {
+        usage[wizardCode].versions[version].lastUsed = date;
+      }
+    });
+
+    return Object.values(usage)
+      .map(entry => {
+        const versions = Object.values(entry.versions);
+        versions.sort((a, b) => {
+          if (b.count !== a.count) {
+            return b.count - a.count;
+          }
+
+          if (a.lastUsed && b.lastUsed) {
+            return b.lastUsed.valueOf() - a.lastUsed.valueOf();
+          }
+
+          if (b.lastUsed) {
+            return 1;
+          }
+
+          if (a.lastUsed) {
+            return -1;
+          }
+
+          return 0;
+        });
+
+        const topVersion = versions[0];
+
+        return {
+          wizardName: entry.wizardName,
+          wizardCode: entry.wizardCode,
+          version: topVersion?.version || 'Unknown',
+          releaseDate: resolveReleaseDate(entry.wizardName, topVersion?.version || 'Unknown'),
+          connections: topVersion?.count || 0,
+          lastUsed: topVersion?.lastUsed ? topVersion.lastUsed.format('DD-MMM-YY HH:mm') : 'Unknown'
+        };
+      })
+      .sort((a, b) => a.wizardName.localeCompare(b.wizardName));
   }
 
   calculateHealthScore(catalogData) {
@@ -390,9 +570,100 @@ class AnalysisEngine {
     };
   }
 
-  analyzeVersionComparison(packages) {
+  analyzeVersionComparison(packages, servletVersion = null, installedVersions = []) {
     try {
-      const filteredPackages = this.filterRelevantPackages(packages);
+      const filteredPackages = this.filterRelevantPackages(packages, { includeInformational: true })
+        .filter(pkg => !/^(?:APPS|BOLINF)\.M4APS_XML$/i.test(pkg.packageName));
+
+      const normalizeVersion = (value) => {
+        if (!value) {
+          return null;
+        }
+
+        const match = String(value).match(/\d+(?:\.\d+)+/);
+        return match ? match[0] : String(value).trim();
+      };
+
+      const loadProductHistory = () => {
+        try {
+          const fs = require('fs');
+          const path = require('path');
+          const historyPath = path.join(__dirname, '..', 'data', 'productHistory.json');
+          const raw = fs.readFileSync(historyPath, 'utf8');
+          return JSON.parse(raw);
+        } catch (error) {
+          console.warn('Failed to load product history:', error);
+          return null;
+        }
+      };
+
+      const resolveSharedReleaseDate = (componentName, version) => {
+        if (!version || version === 'Unknown') {
+          return null;
+        }
+
+        const normalizedVersion = normalizeVersion(version);
+
+        try {
+          const productHistory = loadProductHistory();
+          const products = productHistory?.products || {};
+          const match = Object.values(products).find(product =>
+            product?.name === componentName || product?.code === componentName
+          );
+
+          const historyMatch = match?.versions?.find(entry => normalizeVersion(entry?.version) === normalizedVersion);
+          if (historyMatch?.releaseDate) {
+            return historyMatch.releaseDate;
+          }
+        } catch (error) {
+          console.warn('Failed to read product history for shared components:', error);
+        }
+
+        try {
+          const { latestVersions } = require('./versionChecker');
+          const latestInfo = latestVersions?.[componentName];
+          if (latestInfo?.releaseDate) {
+            return latestInfo.releaseDate;
+          }
+        } catch (error) {
+          console.warn('Failed to read latest versions for shared components:', error);
+        }
+
+        return null;
+      };
+
+      const cleanVersion = (value) => {
+        if (!value || typeof value !== 'string') {
+          return value || 'Unknown';
+        }
+
+        const trimmed = value.trim();
+        if (/^not required$/i.test(trimmed) || /^n\/?a$/i.test(trimmed)) {
+          return trimmed;
+        }
+
+        return trimmed.split(' ')[0];
+      };
+
+      const sharedComponents = [];
+      const sharedPackage = (packages || []).find(pkg => /^(?:APPS|BOLINF)\.M4APS_XML$/i.test(pkg.packageName));
+      if (sharedPackage) {
+        const version = cleanVersion(sharedPackage.body);
+        sharedComponents.push({
+          name: 'Shared Package',
+          version,
+          releaseDate: resolveSharedReleaseDate('Wizard Infrastructure for R12 (XML package)', version)
+        });
+      }
+
+      if (servletVersion) {
+        const version = cleanVersion(servletVersion);
+        sharedComponents.push({
+          name: 'More4apps Servlet',
+          version,
+          releaseDate: resolveSharedReleaseDate('More4apps Servlet', version)
+        });
+      }
       
       if (!filteredPackages || filteredPackages.length === 0) {
         return {
@@ -411,7 +682,7 @@ class AnalysisEngine {
 
       // Import the function here to avoid module loading issues
       const { analyzePackageVersions } = require('./versionChecker');
-      return analyzePackageVersions(filteredPackages);
+      return analyzePackageVersions(filteredPackages, installedVersions, sharedComponents);
     } catch (error) {
       console.error('Error in version comparison analysis:', error);
       // Return empty result instead of crashing

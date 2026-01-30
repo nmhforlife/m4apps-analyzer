@@ -15,10 +15,15 @@ function cleanVersionString(versionStr) {
   if (!versionStr || typeof versionStr !== 'string') {
     return versionStr;
   }
+
+  const trimmed = versionStr.trim();
+  if (/^not required$/i.test(trimmed) || /^n\/?a$/i.test(trimmed)) {
+    return trimmed;
+  }
   
   // Remove everything after the version number (dates, spaces, etc.)
   // Pattern: version number followed by space and date
-  const cleaned = versionStr.trim().split(' ')[0];
+  const cleaned = trimmed.split(' ')[0];
   return cleaned;
 }
 
@@ -268,7 +273,7 @@ const latestVersions = {
     "header": "2.1.9",
     "body": "2.1.9",
     "minBodyVersion": "2.1.9",
-    "releaseDate": "15-Sep-2025",
+    "releaseDate": "05-Dec-2025",
     "downloadUrl": "https://community.more4apps.com/s/ebs-toolbox-downloads",
     "code": "ARW"
   },
@@ -297,10 +302,10 @@ const latestVersions = {
     "code": "BW"
   },
   "ERP Cloud Toolbox Add-In": {
-    "header": "19.1.0.0",
-    "body": "19.1.0.0",
-    "minBodyVersion": "19.1.0.0",
-    "releaseDate": "17-Nov-2025",
+    "header": "19.2.0.0",
+    "body": "19.2.0.0",
+    "minBodyVersion": "19.2.0.0",
+    "releaseDate": "09-Jan-2026",
     "downloadUrl": "https://community.more4apps.com/s/ebs-toolbox-downloads",
     "code": "CLTBA"
   },
@@ -376,14 +381,6 @@ const latestVersions = {
     "downloadUrl": "https://community.more4apps.com/s/ebs-toolbox-downloads",
     "code": "INFRA Mobile"
   },
-  "Wizard Infrastructure for R12 (XML package and servlet)": {
-    "header": "12.1.8 29-Nov-25",
-    "body": "12.1.17 29 Nov 25",
-    "minBodyVersion": "12.1.8",
-    "releaseDate": "01-Dec-2025",
-    "downloadUrl": "https://community.more4apps.com/s/ebs-toolbox-downloads",
-    "code": "INFRA R12"
-  },
   "Item Wizard": {
     "header": "1.2.6",
     "body": "1.3.17",
@@ -409,42 +406,42 @@ const latestVersions = {
     "code": "MTW"
   },
   "Oracle Cloud Example Product": {
-    "header": "19.1.0.0",
-    "body": "19.1.0.0",
-    "minBodyVersion": "19.1.0.0",
-    "releaseDate": "17-Nov-2025",
+    "header": "19.2.0.0",
+    "body": "19.2.0.0",
+    "minBodyVersion": "19.2.0.0",
+    "releaseDate": "09-Jan-2026",
     "downloadUrl": "https://community.more4apps.com/s/ebs-toolbox-downloads",
     "code": "OC-EXAMPLE"
   },
   "Cloud Finance": {
-    "header": "19.9.3.0",
-    "body": "19.9.3.0",
-    "minBodyVersion": "19.9.3.0",
-    "releaseDate": "15-Dec-2025",
+    "header": "19.10.8.1",
+    "body": "19.10.8.1",
+    "minBodyVersion": "19.10.8.1",
+    "releaseDate": "19-Jan-2026",
     "downloadUrl": "https://community.more4apps.com/s/ebs-toolbox-downloads",
     "code": "OC-FIN"
   },
   "Cloud Procurement": {
-    "header": "19.2.3.0",
-    "body": "19.2.3.0",
-    "minBodyVersion": "19.2.3.0",
-    "releaseDate": "15-Dec-2025",
+    "header": "19.3.11.0",
+    "body": "19.3.11.0",
+    "minBodyVersion": "19.3.11.0",
+    "releaseDate": "29-Jan-2026",
     "downloadUrl": "https://community.more4apps.com/s/ebs-toolbox-downloads",
     "code": "OC-PROC"
   },
   "Cloud Product Definition": {
-    "header": "19.2.2.0",
-    "body": "19.2.2.0",
-    "minBodyVersion": "19.2.2.0",
-    "releaseDate": "15-Dec-2025",
+    "header": "19.3.2.0",
+    "body": "19.3.2.0",
+    "minBodyVersion": "19.3.2.0",
+    "releaseDate": "16-Jan-2026",
     "downloadUrl": "https://community.more4apps.com/s/ebs-toolbox-downloads",
     "code": "OC-PRODUCTDEF"
   },
   "Cloud Projects": {
-    "header": "19.2.2.0",
-    "body": "19.2.2.0",
-    "minBodyVersion": "19.2.2.0",
-    "releaseDate": "15-Dec-2025",
+    "header": "19.2.8.0",
+    "body": "19.2.8.0",
+    "minBodyVersion": "19.2.8.0",
+    "releaseDate": "16-Jan-2026",
     "downloadUrl": "https://community.more4apps.com/s/ebs-toolbox-downloads",
     "code": "OC-PROJ"
   },
@@ -500,7 +497,7 @@ const latestVersions = {
     "header": "1.1.3",
     "body": "1.2.4",
     "minBodyVersion": "1.2.4",
-    "releaseDate": "30-Sep-2025",
+    "releaseDate": "13-Jan-2026",
     "downloadUrl": "https://community.more4apps.com/s/ebs-toolbox-downloads",
     "code": "RIW"
   },
@@ -516,7 +513,7 @@ const latestVersions = {
     "header": "2.0.3",
     "body": "2.0.2",
     "minBodyVersion": "2.0.2",
-    "releaseDate": "06-Oct-2025",
+    "releaseDate": "25-Nov-2025",
     "downloadUrl": "https://community.more4apps.com/s/ebs-toolbox-downloads",
     "code": "RTW"
   },
@@ -532,7 +529,7 @@ const latestVersions = {
     "header": "1.2.3",
     "body": "1.2.6",
     "minBodyVersion": "1.2.3",
-    "releaseDate": "10-Sep-2025",
+    "releaseDate": "19-Jan-2026",
     "downloadUrl": "https://community.more4apps.com/s/ebs-toolbox-downloads",
     "code": "SCW"
   },
@@ -583,6 +580,14 @@ const latestVersions = {
     "releaseDate": "21-Mar-2013",
     "downloadUrl": "https://community.more4apps.com/s/ebs-toolbox-downloads",
     "code": "UW"
+  },
+  "Wizard Infrastructure for R12 (XML package)": {
+    "header": "12.1.8 29-Nov-25",
+    "body": "12.1.17 29 Nov 25",
+    "minBodyVersion": "12.1.8",
+    "releaseDate": "21-Jan-2026",
+    "downloadUrl": "https://community.more4apps.com/s/ebs-toolbox-downloads",
+    "code": "INFRA R12"
   }
 };
 
@@ -592,6 +597,14 @@ const latestVersions = {
 function getWizardNameFromPackage(packageName) {
   try {
     if (!packageName) return 'Unknown Package';
+
+    if (/^(?:APPS|BOLINF)\.M4APS_XML$/i.test(packageName)) {
+      return 'Wizard Infrastructure for R12 (XML package)';
+    }
+
+    if (/^SERVLET$/i.test(packageName)) {
+      return 'More4apps Servlet';
+    }
     
     // Use the centralized mapping from productMapping.js
     const wizardName = getWizardName(packageName);
@@ -667,10 +680,25 @@ function compareVersions(v1, v2) {
 /**
  * Check package version against latest available version
  */
+function isSharedComponentWizard(wizardName, packageName) {
+  if (wizardName === 'Wizard Infrastructure for R12 (XML package)' || wizardName === 'More4apps Servlet') {
+    return true;
+  }
+
+  if (/^(?:APPS|BOLINF)\.M4APS_XML$/i.test(packageName)) {
+    return true;
+  }
+
+  return /^SERVLET$/i.test(packageName);
+}
+
 function checkPackageVersion(packageName, currentVersions) {
   try {
     const wizardName = getWizardNameFromPackage(packageName);
-    const latestInfo = latestVersions[wizardName];
+    let latestInfo = latestVersions[wizardName];
+    if (!latestInfo && wizardName === 'Wizard Infrastructure for R12 (XML package)') {
+      latestInfo = latestVersions['Wizard Infrastructure for R12 (XML package and servlet)'];
+    }
     
     // Handle both old format (string) and new format (object with header/body)
     let currentBody;
@@ -694,9 +722,11 @@ function checkPackageVersion(packageName, currentVersions) {
       };
     }
     
-    const latestBody = latestInfo.body;
-    const minBodyVersion = latestInfo.minBodyVersion || latestBody; // Fallback to body if no minBodyVersion
+    const latestBody = cleanVersionString(latestInfo.body);
+    const minBodyVersion = cleanVersionString(latestInfo.minBodyVersion || latestInfo.body); // Fallback to body if no minBodyVersion
     
+    const isSharedComponent = isSharedComponentWizard(wizardName, packageName);
+
     // Special handling for "Not required" packages
     if (latestBody === 'Not required') {
       return {
@@ -744,6 +774,15 @@ function checkPackageVersion(packageName, currentVersions) {
       }
     }
     
+    if (isSharedComponent) {
+      status = 'Update Recommended';
+      if (latestBody === 'Unknown') {
+        recommendation = 'Update recommended for shared components.';
+      } else {
+        recommendation = `Update recommended - Installed version ${currentBody}. Recommended: ${latestBody}. Released: ${latestInfo.releaseDate}`;
+      }
+    }
+
     return {
       wizardName,
       packageName,
@@ -785,7 +824,7 @@ function checkPackageVersion(packageName, currentVersions) {
 /**
  * Analyze multiple packages and provide summary
  */
-function analyzePackageVersions(packages) {
+function analyzePackageVersions(packages, installedVersions = [], sharedComponentsOverride = null) {
   if (!packages || packages.length === 0) {
     return {
       summary: {
@@ -825,10 +864,13 @@ function analyzePackageVersions(packages) {
   const updatesNeeded = results.filter(r => r.status === 'Update Required' || r.status === 'Update Recommended');
   if (updatesNeeded.length > 0) {
     // Generate detailed update message
-    const wizardsNeedingUpdates = updatesNeeded.map(r => r.wizardName);
+    const wizardsNeedingUpdates = updatesNeeded
+      .map(r => r.wizardName)
+      .filter(name => name !== 'Wizard Infrastructure for R12 (XML package)' && name !== 'More4apps Servlet');
     const wizardsUpToDate = results.filter(r => r.status === 'Current').map(r => r.wizardName);
     const outdatedPackagesTable = updatesNeeded.map(pkg => ({
       wizardName: pkg.wizardName,
+      packageName: pkg.packageName,
       currentBody: pkg.currentBody,
       minBodyVersion: pkg.minBodyVersion,
       latestBody: pkg.latestBody,
@@ -836,8 +878,30 @@ function analyzePackageVersions(packages) {
       releaseDate: pkg.releaseDate,
       downloadUrl: pkg.downloadUrl
     }));
+    const upToDatePackagesTable = results
+      .filter(pkg => pkg.status === 'Current')
+      .map(pkg => ({
+        wizardName: pkg.wizardName,
+        packageName: pkg.packageName,
+        currentBody: pkg.currentBody,
+        minBodyVersion: pkg.minBodyVersion,
+        latestBody: pkg.latestBody,
+        status: pkg.status,
+        releaseDate: pkg.releaseDate,
+        downloadUrl: pkg.downloadUrl
+      }));
     
-    const detailedMessage = generateDetailedUpdateMessage(wizardsNeedingUpdates, wizardsUpToDate, outdatedPackagesTable);
+    const sharedComponents = sharedComponentsOverride && sharedComponentsOverride.length > 0
+      ? sharedComponentsOverride
+      : getSharedComponents(results);
+    const detailedMessage = generateDetailedUpdateMessage(
+      wizardsNeedingUpdates,
+      wizardsUpToDate,
+      outdatedPackagesTable,
+      upToDatePackagesTable,
+      installedVersions,
+      sharedComponents
+    );
     
     recommendations.push({
       type: 'updates',
@@ -878,65 +942,131 @@ function analyzePackageVersions(packages) {
   };
 }
 
+function getSharedComponents(results) {
+  if (!results || results.length === 0) {
+    return [];
+  }
+
+  const components = [];
+  const servletEntry = results.find(pkg => pkg.wizardName === 'More4apps Servlet' || pkg.packageName === 'SERVLET');
+  if (servletEntry) {
+    components.push({
+      name: 'More4apps Servlet',
+      version: servletEntry.currentBody || 'Unknown'
+    });
+  }
+
+  const sharedPackageEntry = results.find(pkg =>
+    pkg.wizardName === 'Wizard Infrastructure for R12 (XML package)' ||
+    /^(?:APPS|BOLINF)\.M4APS_XML$/i.test(pkg.packageName)
+  );
+  if (sharedPackageEntry) {
+    components.push({
+      name: 'Shared Package',
+      version: sharedPackageEntry.currentBody || 'Unknown'
+    });
+  }
+
+  return components;
+}
+
 /**
  * Generate detailed update message for customers
  */
-function generateDetailedUpdateMessage(wizardsNeedingUpdates, wizardsUpToDate, outdatedPackagesTable = []) {
+function generateDetailedUpdateMessage(
+  wizardsNeedingUpdates,
+  wizardsUpToDate,
+  outdatedPackagesTable = [],
+  upToDatePackagesTable = [],
+  installedVersions = [],
+  sharedComponents = []
+) {
   let message = `Dear Customer,
 
 Based on our analysis of your installed packages, we have identified the following information about your More4apps Wizard installations:
 
 `;
 
-  // Add section for wizards needing updates
-  if (wizardsNeedingUpdates.length > 0) {
-    message += `WIZARDS REQUIRING UPDATES:
-=============================
-
-The following Wizards require package updates to take advantage of the latest versions:
+  if (sharedComponents && sharedComponents.length > 0) {
+    message += `SHARED COMPONENTS (Currently Installed):
+===============================
 
 `;
-    wizardsNeedingUpdates.forEach(wizard => {
-      message += `• ${wizard}\n`;
+
+    sharedComponents.forEach(component => {
+      const nameLabel = component.name || 'Unknown Component';
+      const versionLabel = component.version || 'Unknown';
+      const releaseLabel = component.releaseDate ? ` (Released ${component.releaseDate})` : '';
+      message += `• ${nameLabel}: ${versionLabel}${releaseLabel}\n`;
     });
+
     message += `\n`;
-
-    // Add detailed version comparison table
-    if (outdatedPackagesTable.length > 0) {
-      message += `DETAILED VERSION COMPARISON:
-============================
-
-`;
-      
-      // Use a more Salesforce-friendly format with clear field names
-      outdatedPackagesTable.forEach((pkg, index) => {
-        message += `${index + 1}. ${pkg.wizardName || 'Unknown Wizard'}\n`;
-        message += `   Status:                 ${pkg.status || 'Unknown'}\n`;
-        message += `   Current Body Version:   ${pkg.currentBody || 'Unknown'}\n`;
-        message += `   Minimum Body Version:   ${pkg.minBodyVersion || 'Not specified'}\n`;
-        message += `   Latest Body Version:    ${pkg.latestBody || 'Unknown'}\n`;
-        message += `   Release Date:           ${pkg.releaseDate || 'Unknown'}\n`;
-        if (index < outdatedPackagesTable.length - 1) {
-          message += '\n';
-        }
-      });
-      
-      message += '\n';
-    }
   }
 
-  // Add section for up-to-date packages
-  if (wizardsUpToDate.length > 0) {
-    message += `PACKAGES UP TO DATE:
-===================
-
-Good news! The following Packages do not require any updates to take advantage of the latest versions:
+  if (installedVersions && installedVersions.length > 0) {
+    message += `CURRENT INSTALLED VERSIONS (Most Common - Past 6 Months):
+===============================
 
 `;
-    wizardsUpToDate.forEach(wizard => {
-      message += `• ${wizard}\n`;
+
+    installedVersions.forEach(item => {
+      const wizardLabel = item.wizardName || 'Unknown Wizard';
+      const codeLabel = item.wizardCode ? ` (${item.wizardCode})` : '';
+      const versionLabel = item.version || 'Unknown';
+      const releaseLabel = item.releaseDate ? ` (Released ${item.releaseDate})` : '';
+      message += `• ${wizardLabel}${codeLabel}: ${versionLabel}${releaseLabel}\n`;
     });
+
     message += `\n`;
+  }
+
+  // Add section for update recommendations summary
+  if (outdatedPackagesTable.length > 0 || upToDatePackagesTable.length > 0) {
+    message += `UPDATE RECOMMENDATIONS (Installed vs. Recommended):
+=======================================
+
+`;
+
+    let summaryIndex = 1;
+    outdatedPackagesTable.forEach(pkg => {
+      const isSharedComponent = isSharedComponentWizard(pkg.wizardName, pkg.packageName || '');
+      const hasNoRequirements = pkg.latestBody === 'Not required' || pkg.minBodyVersion === 'Not required';
+      message += `${summaryIndex}. ${pkg.wizardName || 'Unknown Wizard'}\n`;
+      message += `   Status:                 ${pkg.status || 'Unknown'}\n`;
+      if (hasNoRequirements) {
+        message += `   Package Requirements:  This wizard does not have any package requirements.\n`;
+      } else {
+        message += `   Installed Body Version:      ${pkg.currentBody || 'Unknown'}\n`;
+        if (!isSharedComponent) {
+          message += `   Minimum Body Version:        ${pkg.minBodyVersion || 'Not specified'}\n`;
+        }
+        message += `   Recommended Body Version:    ${pkg.latestBody || 'Unknown'}\n`;
+      }
+      message += '\n';
+      summaryIndex += 1;
+    });
+
+    upToDatePackagesTable.forEach(pkg => {
+      const isSharedComponent = isSharedComponentWizard(pkg.wizardName, pkg.packageName || '');
+      const hasNoRequirements = pkg.latestBody === 'Not required' || pkg.minBodyVersion === 'Not required';
+      message += `${summaryIndex}. ${pkg.wizardName || 'Unknown Wizard'}\n`;
+      message += `   Status:                 ${pkg.status || 'Unknown'}\n`;
+      if (hasNoRequirements) {
+        message += `   Package Requirements:  This wizard does not have any package requirements.\n`;
+      } else {
+        message += `   Installed Body Version:      ${pkg.currentBody || 'Unknown'}\n`;
+        if (!isSharedComponent) {
+          message += `   Minimum Body Version:        ${pkg.minBodyVersion || 'Not specified'}\n`;
+        }
+        message += `   Recommended Body Version:    ${pkg.latestBody || 'Unknown'}\n`;
+      }
+      if (summaryIndex < outdatedPackagesTable.length + upToDatePackagesTable.length) {
+        message += '\n';
+      }
+      summaryIndex += 1;
+    });
+
+    message += '\n';
   }
 
   // Add download instructions
@@ -945,14 +1075,21 @@ Good news! The following Packages do not require any updates to take advantage o
 
 Please follow these steps to update your wizards:
 
-1. Download the latest versions from the More4apps Community portal
-   Navigate to "EBS Toolbox">"Downloads" to find the latest wizard packages.
-   Link: https://community.more4apps.com/s/
+1. Download the Shared Installation Script to update the Shared Packages and follow the manual steps to complete the Servlet installation for your version of EBS
+  Navigate to "EBS Toolbox">"User Guides">"Installation Guide"
+  Direct link to Installation Guide: https://doc.ebsinstall.more4apps.com/ebs-installation-guide/1.1/index.html
+  Notes:
+  - The instructions are geared for First time Installation and some steps may not be required for your Update
+  - An appserver bounce is required to update the Servlet. This update should be planned to be done in Production during a scheduled EBS Maintenance window.
 
-2. Follow the installation guide for detailed instructions
-   Installation Guide: https://doc.ebsinstall.more4apps.com/ebs-installation-guide/1.1/index.html
+2. Download the latest versions from the More4apps Community portal
+  Navigate to "EBS Toolbox">"Downloads" to find the latest wizard packages.
+  Link: https://community.more4apps.com/s/
 
-3. After installation, verify the versions are up to date
+3. Follow the installation guide for detailed instructions
+  Installation Guide: https://doc.ebsinstall.more4apps.com/ebs-installation-guide/1.1/index.html
+
+4. After installation, verify the versions are up to date
 
 
 Important Notes:

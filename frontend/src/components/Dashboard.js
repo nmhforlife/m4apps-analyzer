@@ -78,13 +78,27 @@ function Dashboard() {
 
   // Filter clients by search
   React.useEffect(() => {
-    if (clientSearch.trim() === '') {
+    const normalizedSearch = clientSearch.toLowerCase().trim();
+
+    if (normalizedSearch === '') {
       setFilteredClients([]);
       return;
     }
-    const searchLower = clientSearch.toLowerCase();
+
+    const escapeRegExp = (value) => value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    const escapedSearch = escapeRegExp(normalizedSearch);
+    const phrasePattern = escapedSearch.replace(/\s+/g, '\\s+');
+    const nameRegex = new RegExp(`\\b${phrasePattern}\\b`, 'i');
+
     setFilteredClients(
-      clients.filter(c => c.name.toLowerCase().includes(searchLower))
+      clients.filter(c => {
+        const normalizedCode = c.code.toLowerCase();
+
+        return (
+          nameRegex.test(c.name) ||
+          normalizedCode.includes(normalizedSearch)
+        );
+      })
     );
   }, [clientSearch]);
 
@@ -382,6 +396,28 @@ function Dashboard() {
     return grouped;
   };
 
+  const extractDomainSuffix = (urlValue) => {
+    if (!urlValue || typeof urlValue !== 'string') return '';
+
+    let hostname = '';
+    try {
+      hostname = new URL(urlValue).hostname;
+    } catch (error) {
+      try {
+        hostname = new URL(`http://${urlValue}`).hostname;
+      } catch (innerError) {
+        return '';
+      }
+    }
+
+    const firstDotIndex = hostname.indexOf('.');
+    if (firstDotIndex === -1) {
+      return hostname.toLowerCase();
+    }
+
+    return hostname.slice(firstDotIndex + 1).toLowerCase();
+  };
+
   // Check if catalogs is undefined, null, or empty
   if (!catalogs || catalogs.length === 0) {
     return (
@@ -606,12 +642,22 @@ function Dashboard() {
                     {licenseError && <Alert severity="error">{licenseError}</Alert>}
                     {licenseInfo && Array.isArray(licenseInfo.items) && (
                       <Box sx={{ mt: 2 }}>
+                        {(() => {
+                          const servletDomainSuffix = extractDomainSuffix(servletAgent);
+                          const licenseItemsForDisplay = servletDomainSuffix
+                            ? licenseInfo.items.filter(item =>
+                                extractDomainSuffix(item.url) === servletDomainSuffix
+                              )
+                            : licenseInfo.items;
+
+                          return (
+                            <>
                         {/* Comparison check between API licenses and catalog licenses */}
                         {(() => {
                           // Catalog licenses
                           const catalogLicenses = (latestCatalog?.licenseKeys || []).map(l => l.licenseName.replace('M4APS_', '').replace('_LICENCE_KEY', ''));
                           // API licenses
-                          const apiLicenses = licenseInfo.items.map(l => l.product_code);
+                          const apiLicenses = licenseItemsForDisplay.map(l => l.product_code);
                           // Missing in API
                           const missingInApi = catalogLicenses.filter(code => !apiLicenses.includes(code));
                           // Extra in API
@@ -636,7 +682,7 @@ function Dashboard() {
                         })()}
                         {/* Group licenses by product_name and display as cards with expand/collapse */}
                         {Object.entries(
-                          licenseInfo.items.reduce((acc, item) => {
+                          licenseItemsForDisplay.reduce((acc, item) => {
                             const key = item.product_name || item.product_code;
                             if (!acc[key]) acc[key] = [];
                             acc[key].push(item);
@@ -681,6 +727,9 @@ function Dashboard() {
                             </Box>
                           );
                         })}
+                            </>
+                          );
+                        })()}
                       </Box>
                     )}
                   </Box>
@@ -1020,9 +1069,11 @@ function Dashboard() {
                             {pkg.wizardName}
                           </td>
                           <td style={{ padding: '12px', fontFamily: 'monospace', fontSize: '0.85rem' }}>
-                            {pkg.packageName
-                              ? pkg.packageName.replace(/^((APPS|BOLINF)\.M4APS_)/, '')
-                              : 'N/A'}
+                            {(() => {
+                              if (!pkg.packageName) return 'N/A';
+                              const trimmed = pkg.packageName.replace(/^((APPS|BOLINF)\.M4APS_)/, '');
+                              return trimmed === 'XML' ? 'SHARED PACKAGE' : trimmed;
+                            })()}
                           </td>
                           <td style={{ 
                             padding: '12px', 
@@ -1083,7 +1134,7 @@ function Dashboard() {
                   </Box>
                   <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
                     <Box sx={{ width: 16, height: 16, backgroundColor: '#d1ecf1', border: '1px solid #bee5eb' }}></Box>
-                    <Typography variant="caption">Newer than community</Typography>
+                    <Typography variant="caption">Update Recommended</Typography>
                   </Box>
                 </Box>
               </CardContent>
